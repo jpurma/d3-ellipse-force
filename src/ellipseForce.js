@@ -1,18 +1,25 @@
 
-export default function () {
-  var nodes,
-      padding = 7,
-      innerRepulsion = 0.5,
-      outerRepulsion = 0.5;
+function constant(x) {
+  return function() {
+    return x;
+  };
+}
 
-  function force() {
+export default function (padding, innerRepulsion, outerRepulsion) {
+  var nodes;
+  
+  if (typeof padding !== "function") padding = constant(padding == null ? 7 : +padding);
+  innerRepulsion = innerRepulsion == null ? 0.5 : +innerRepulsion;
+  outerRepulsion = outerRepulsion == null ? 0.5 : +outerRepulsion;
+
+  function force(alpha) {
     var i, j, n = nodes.length,
         // dimensions of this node
-        node, my_w, my_h, my_x, my_y,
+        node, my_padding, my_w, my_h, my_x, my_y,
         // often used multiples
         my_w2, my_h2, my_wh,
         // dimensions of the other node 
-        other, other_w, other_h, other_x, other_y,
+        other, other_padding, other_w, other_h, other_x, other_y,
         // distance between nodes
         dist_x, dist_y,
         // components for the overall result
@@ -21,13 +28,13 @@ export default function () {
         g, g2, x1, y1, x2, y2, d1, d2,
         force_ratio1, force_ratio2,
         // parameters
-        myOuterRepulsion = outerRepulsion * 16,
-        alpha = simulation.alpha();
+        myOuterRepulsion = outerRepulsion * 16;
 
     for (i = 0; i < n; ++i) {
       node = nodes[i];
-      my_w = node.rx + padding;
-      my_h = node.ry + padding;
+      my_padding = +padding(node, i, nodes);
+      my_w = node.rx + my_padding;
+      my_h = node.ry + my_padding;
       my_w2 = my_w * my_w;
       my_h2 = my_h * my_h;
       my_wh = my_w * my_h;
@@ -39,8 +46,9 @@ export default function () {
               continue;             
           }
           other = nodes[j];
-          other_w = other.rx + padding;
-          other_h = other.ry + padding;
+          other_padding = +padding(other, j, nodes);
+          other_w = other.rx + other_padding;
+          other_h = other.ry + other_padding;
           other_x = other.x + other.vx;
           other_y = other.y + other.vy;
           dist_x = my_x - other_x;
