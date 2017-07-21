@@ -1,5 +1,9 @@
 # d3-ellipse-force
 
+[<img alt="Ellipse force" src="https://gist.githubusercontent.com/jpurma/6dd2081cf25a5d2dfcdcab1a4868f237/raw/def5a531621d7e7af0663cdccea919997920bc43/example.png" width="664" height="369">](http://bl.ocks.org/jpurma/6dd2081cf25a5d2dfcdcab1a4868f237)
+
+[(Demo)](http://bl.ocks.org/jpurma/6dd2081cf25a5d2dfcdcab1a4868f237)
+
 This plugin provides `ellipseForce`, an alternative for components `manyBodies` and `collision`  in [`d3-force`](https://github.com/d3/d3-force)-module. EllipseForce can be used to create force-directed graph layouts where nodes are ellipses or unequal rectangles, e.g. labels or text snippets, which often require wide and low rectangles. 
 
 Though ellipseForce calculates elliptic forces, the graphical representation of the node can be a rectangle: Force-directed graphs don't generally work well if nodes are calculated as straight-angled objects -- elliptic shapes allow nodes to nudge and slide past each others in a way that is worth the risk of slight overlap in corners.     
