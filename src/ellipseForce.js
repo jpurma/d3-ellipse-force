@@ -8,7 +8,7 @@ function constant(x) {
 export default function (padding, innerRepulsion, outerRepulsion) {
   var nodes;
   
-  if (typeof padding !== "function") padding = constant(padding == null ? 7 : +padding);
+  if (typeof padding !== "function") padding = constant(padding == null ? 4 : +padding);
   innerRepulsion = innerRepulsion == null ? 0.5 : +innerRepulsion;
   outerRepulsion = outerRepulsion == null ? 0.5 : +outerRepulsion;
 
@@ -140,7 +140,11 @@ export default function (padding, innerRepulsion, outerRepulsion) {
 
   force.padding = function(my_padding) {
     if (arguments.length) {
-      padding = +my_padding;
+      if (typeof my_padding  === "function") {
+        padding = my_padding;
+      } else {
+        padding = constant(+my_padding);
+      }      
       return force;
     } else {
       return padding;

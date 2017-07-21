@@ -42,7 +42,7 @@ ellipseForce can take three parameters, *padding*(=4) *innerRepulse*(=.5) and *o
 
 <a name="padding" href="#padding">#</a> <i>force</i>.<b>padding</b>([<i>my_padding</i>]) [<>](https://github.com/jpurma/d3-ellipse-force/blob/master/src/ellipseForce.js#L141 "Source")
 
-If *padding* is specified, sets the current padding to the specified size and returns the force. If *padding* is not specified, returns the current padding size, which defaults to 4.
+If *padding* is specified, sets the current padding to the specified size and returns the force. *padding* can be given a function that is called with the current node as argument to dynamically create the padding. If *padding* is not specified, returns the *function* to receive the current padding size, which defaults to function that returns 4, when called (with any arguments).
 
 <a name="innerRepulse" href="#innerRepulse">#</a> <i>force</i>.<b>innerRepulse</b>([<i>my_innerRepulse</i>]) [<>](https://github.com/jpurma/d3-ellipse-force/blob/master/src/ellipseForce.js#L132 "Source")
 
