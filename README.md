@@ -40,9 +40,17 @@ ellipseForce can take three parameters, *padding*(=4) *innerRepulse*(=.5) and *o
 * `innerRepulse` is used to calculate the strength of repulsion when nodes are inside each other, aka. overlap. 
 * `outerRepulse` is the base strength of repulsion towards other, non-overlapping nodes. It dissipates fast.  
 
-<a name="padding" href="#padding">#</a> <i>force</i>.<b>padding</b>([<i>size</i>]) [<>](https://github.com/jpurma/d3-ellipse-force/blob/master/src/ellipseForce.js#L141 "Source")
+<a name="padding" href="#padding">#</a> <i>force</i>.<b>padding</b>([<i>my_padding</i>]) [<>](https://github.com/jpurma/d3-ellipse-force/blob/master/src/ellipseForce.js#L141 "Source")
 
 If *padding* is specified, sets the current padding to the specified size and returns the force. If *padding* is not specified, returns the current padding size, which defaults to 4.
+
+<a name="innerRepulse" href="#innerRepulse">#</a> <i>force</i>.<b>innerRepulse</b>([<i>my_innerRepulse</i>]) [<>](https://github.com/jpurma/d3-ellipse-force/blob/master/src/ellipseForce.js#L132 "Source")
+
+If *innerRepulse* is specified, sets the repulsion for overlapping nodes to the specified amount and returns the force. If *innerRepulse* is not specified, returns the current repulsion, which defaults to 0.5.
+
+<a name="outerRepulse" href="#outerRepulse">#</a> <i>force</i>.<b>outerRepulse</b>([<i>my_outerRepulse</i>]) [<>](https://github.com/jpurma/d3-ellipse-force/blob/master/src/ellipseForce.js#L123 "Source")
+
+If *outerRepulse* is specified, sets the repulsion for non-overlapping nodes to the specified amount and returns the force. If *outerRepulse* is not specified, returns the current repulsion, which defaults to 0.5.
 
 
 Example for including ellipseForce as a force (compare to [**forceSimulation**](https://github.com/d3/d3-force#simulation_force)):
