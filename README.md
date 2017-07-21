@@ -10,6 +10,8 @@ See comments in [src/ellipseForce.js](src/ellipseForce.js) for further explanati
 
 In d3 v.4, force calculations are divided into components, where one component can be force to push nodes away from each other (`manyBodies`), another to make sure that they don't overlap (`collision`) and one to make links pull nodes together (`links`). Like many older force layout algorithms, `ellipseForce` treats pushing apart and avoiding overlaps as same task, thus replacing both `manyBodies` and `collision`. You can still use other d3-force components with it. 
 
+EllipseForce uses simulation's *alpha*, and will relax the tension in time like other forces.   
+
 A price we have to pay for better layout for labels is performance. EllipseForce doesn't use quadtrees, and as such doesn't scale for hundreds of nodes. It is developed in a hurry and I don't have the time or capacity to think if quadtrees would work at all and how should they be used with elliptic nodes.   
 
 ## Installing
@@ -20,9 +22,10 @@ You can download the [latest release](https://github.com/d3/d3-ellipse-force/rel
 
 The easiest way to get started with ellipseForce is to download the latest release, put the d3-ellipse-force.js or its minified version into same folder with your html file, and use minified, external d3-library to provide you with d3-force and the rest:
 
+```html
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="d3-ellipse-force.js"></script>
-
+```
 
 
 ## API Reference
@@ -33,19 +36,23 @@ Use ellipseForce as **force** in d3's [**forceSimulation**](https://github.com/d
 
 ellipseForce can take three parameters, *padding*(=4) *innerRepulse*(=.5) and *outerRepulse*(=.5). 
 
-*padding* is invisible padding added to radii of ellipsi, a reliable way to add space between nodes.  
+* `padding` is invisible padding added to radii of ellipsi, a reliable way to add space between nodes.  
+* `innerRepulse` is used to calculate the strength of repulsion when nodes are inside each other, aka. overlap. 
+* `outerRepulse` is the base strength of repulsion towards other, non-overlapping nodes. It dissipates fast.  
 
-*innerRepulse* is used to calculate the strength of repulsion when nodes are inside each other, aka. overlap. 
+<a name="padding" href="#padding">#</a> <i>force</i>.<b>padding</b>([<i>size</i>]) [<>](https://github.com/jpurma/d3-ellipse-force/blob/master/src/ellipseForce.js#L141 "Source")
 
-*outerRepulse* is the base strength of repulsion towards other, non-overlapping nodes. It dissipates fast.  
+If *padding* is specified, sets the current padding to the specified size and returns the force. If *padding* is not specified, returns the current padding size, which defaults to 4.
+
 
 Example for including ellipseForce as a force (compare to [**forceSimulation**](https://github.com/d3/d3-force#simulation_force)):
 
+```js
     var simulation = d3.forceSimulation(nodes)
         .force("charge", d3.ellipseForce())
         .force("link", d3.forceLink(links))
         .force("center", d3.forceCenter());
-
+```
 ## Other
 
-I have struggled with rectangular nodes and force-directed graphs several times while developing [Kataja, visualisation tool for biolinguistics](https://github.com/jpurma/Kataja). It would be useful to have a dynamic algorithm for placing those syntactic elements that don't have one fixed place in a tree, but when nodes can contain snippets of text with various length, common algorithms either reserve too much or too little space for node. Attempts to modify them to understand rectangles resulted in jumpy graphs that don't settle nicely. These ellipses worked fine. It seems that other people in visualisation have experienced similar problems with force-directed algorithms, so I decided to let the solution fly as a d3 plugin.
+I have struggled with rectangular nodes and force-directed graphs several times while developing [Kataja, visualisation tool for biolinguistics](https://github.com/jpurma/Kataja). It would be useful to have a dynamic algorithm for placing those syntactic elements that don't have one fixed place in a tree. When nodes are snippets of text of various length, common algorithms either reserve too much or too little space for each of them. My many attempts to modify the algorithms to understand rectangles resulted in jumpy graphs that didn't settle nicely. These ellipses are the final, best result. It seems that other people in visualisation have experienced similar problems with force-directed algorithms, so I decided to let the solution fly as a d3 plugin.

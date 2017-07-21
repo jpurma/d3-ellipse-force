@@ -95,7 +95,8 @@ export default function (padding, innerRepulsion, outerRepulsion) {
               y2 = g * x2
               d2 = Math.sqrt(x2 * x2 + y2 * y2);
               force_ratio2 = d2 / other_w;
-              // now we can calculate the gap or overlap between two ellipses, and force ratio on // how strongly they should push as average of their force_ratios
+              // now we can calculate the gap or overlap between two ellipses, and force ratio on 
+              // how strongly they should push as average of their force_ratios
               dist = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
               gap = dist - d2 - d1;
               force_ratio = (force_ratio1 + force_ratio2) / 2;
