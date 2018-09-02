@@ -63,7 +63,7 @@ export default function (padding, innerRepulsion, outerRepulsion) {
               gap = dist - my_h - other_h;
           } else if (dist_y == 0) {
               force_ratio = 1;
-              dist = abs(dist_x);
+              dist = Math.abs(dist_x);
               gap = dist - my_w - other_w;
           } else {
               // ellipse is defined as  x^2   y^2
